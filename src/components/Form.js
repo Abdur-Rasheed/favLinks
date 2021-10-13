@@ -1,40 +1,52 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
 class Form extends Component {
-    constructor(props) {
-        super(props);
-        
-        /*
-            TODO - set initial state for link name and URL 
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      URL: " ",
+    };
+  }
 
-        */
+  handleChange = (event) => {
+    if (event.target.id === "name") {
+      this.setState({ name: event.target.value });
+    } else {
+      this.setState({ URL: event.target.value });
     }
+  };
 
-    handleChange = event => {
-        /*
-            TODO - Logic for changing state based on form changes
-        */
-    }
+  onFormSubmit = (event) => {
+    // to prevent page reload on form submit
+    event.preventDefault();
 
-    onFormSubmit = (event) => {
-        // to prevent page reload on form submit
-        event.preventDefault();
-        
-        /*
-            TODO - Logic for calling props to handle submission and setting state changes
-        */
+    event.preventDefault();
+    this.setState({ name: "", URL: "" });
+    this.props.onSubmit(this.state);
+  };
 
-    }
-
-    render() {
-
-        return(
-            <form>
-                {/* TODO - Logic for returning a form element with labels and inputs for link name and URL */}
-            </form>
-        )
-    
-    }
+  render() {
+    return (
+      <form>
+        <label>Name</label>
+        <input
+          type="text"
+          id="name"
+          onChange={this.handleChange}
+          value={this.state.name}
+        ></input>
+        <label>URL</label>
+        <input
+          type="text"
+          id="URL"
+          onChange={this.handleChange}
+          value={this.state.URL}
+        ></input>
+        <button onClick={this.onFormSubmit}> Submit</button>
+      </form>
+    );
+  }
 }
 
 export default Form;
